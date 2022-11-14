@@ -1,0 +1,55 @@
+input , label,button{
+    width: 100%;
+    padding: 5px 0;
+    margin: 5px 0;
+}
+form{
+    width: 280px;
+    padding: 20px;
+    margin: 10% 0;
+    border-radius: 10px;
+    box-shadow: 3px 4px 16px 4px grey;
+}
+.formDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+table{
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px 1px;
+    margin: 3px 0;
+}
+
+td,tr,th{
+    padding: 0 10px;
+}
+.action{
+    padding: 8px 15px;
+    color: white;
+    background-color: yellowgreen;
+    border: none;
+    border-radius: 5px;
+}
+.action:hover{
+    background-color: rgb(183, 216, 116);
+}
+.action:active{
+    transform: scale(0.9);
+    transition: 0.5s;
+}
+.title{
+    text-align: center;
+}
+@media (max-width:500px){
+    td,tr,th{
+        padding:0 1px ;
+    }
+    form{
+        margin: 8px;
+        width: 250px;
+    }
+}
