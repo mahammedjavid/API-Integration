@@ -1,39 +1,43 @@
-<h1 class="title">API Integration</h1>
+
 
 <div class="formDiv">
-  <div class="form">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <label>Enter Name</label>
-      <input type="text" formControlName="name" required="">
-      <label>Enter Place</label>
-      <input type="text" formControlName="place" required="">
+  <h3 class="title">API Integration</h3>
+  <div class="form" >
+    <form [formGroup]="form" (ngSubmit)="addUser(form.value)">
+      <label for="">Title</label>
+      <input type="text" formControlName="title" id="title">
+      <label>Enter First Name</label>
+      <input type="text" formControlName="firstName" required="">
+      <label>Enter Last Name</label>
+      <input type="text" formControlName="lastName" required="">
+      <label for="">Enter email</label>
+      <input type="email" formControlName="email">
+      <label for="">Upload Image</label>
+      <input type="text" name="" id="" formControlName="picture">
       <button [disabled]="form.invalid">Submit</button>
     </form>
   </div>
 
-  <div class="table">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Place</th>
-          <th style="position:relative ; left: 33px;">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of getData">
-          <td>{{data.id}}</td>
-          <td>{{data.name}}</td>
-          <td>{{data.place}}</td>
-          <td><button class="action" (click)="deleteItem(data.id)">Delete</button></td>
-          <td><button class="action" (click)="editItem(data)">Edit</button></td>
-          <td><button  class="action" *ngIf="formValid" (click)="updateItem(data)">Update</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 
+  <div class="py-5">
+      <div class="row hidden-md-up">
+        <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let data of getData">
+          <div class="card">
+            <img src="{{data.picture}}" alt="" class="w-50 h-50 text-center m-auto py-3">
+            <div class="card-block text-center">
+              <span>{{data.title}}</span><br>
+              <span>{{data.firstName}}</span> &#8209;
+              <span>{{data.lastName}}</span><br>
+              <button (click)="deleteUser(data.id)" class="btn btn-primary m-3">Delete</button>
+              <button (click)="editItem(data)" class="btn btn-primary m-3">Edit</button>
+              <button (click)="updateItem()" class="btn btn-primary m-3">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
 </div>
+
+
 
 

@@ -1,14 +1,14 @@
 {
   "posts": [
     {
-      "name": "Aizan",
+      "name": "Javid",
       "place": "Kaup",
-      "id": 4
+      "id": 1
     },
     {
-      "name": "Azmal",
-      "place": "ushdw",
-      "id": 5
+      "name": "Javid",
+      "place": "Kaup",
+      "id": 2
     }
   ],
   "comments": [],

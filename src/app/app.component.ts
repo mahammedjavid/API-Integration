@@ -8,59 +8,71 @@ import { Form } from './Type/Type';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'crud';
+  title = 'API-Integration';
   constructor(private apiService:ApiService){}
 
-  postData:Form = new Form()
   getData:any = []
 
+  updateData :any = [
+    {
+      firstName : '',
+      lastName : '',
+      email : '',
+      title  : '',
+      picture  : ''
+
+    }
+  ]
+
   form = new FormGroup({
-    name : new FormControl(),
-    place : new FormControl(),
-    id : new FormControl()
+    firstName : new FormControl(),
+    lastName : new FormControl(),
+    title : new FormControl(),
+    email : new FormControl(),
+    picture : new FormControl()
   })
 
   formValid = false
 
 
-  onSubmit(){
-    this.postData.name = this.form.value.name
-    this.postData.place = this.form.value.place
-
-    this.apiService.PostData(this.postData).subscribe((x)=>{
-      console.log(x)
-      alert('Your information are added to server')
-      this.form.reset()
-      this.generateData()
-    })
-  }
 
   generateData(){
-    this.apiService.getData().subscribe((x)=> this.getData = x)  
+    this.apiService.getData().subscribe((x:any)=>{
+      this.getData = x.data
+      console.log(this.getData)
+    })  
+  }
+  addUser(val:any){
+    this.apiService.PostData(val).subscribe((x)=>this.generateData())
+    this.form.reset()
+  }
+  
+  deleteUser(id:any){
+    this.apiService.deleteData(id).subscribe((x)=> this.generateData())
+  }
+  
+  editItem(data:any){
+    this.updateData.id = data.id
+    this.form.controls['firstName'].setValue(data.firstName)
+    this.form.controls['lastName'].setValue(data.lastName)
+    this.form.controls['title'].setValue(data.title)
+    this.form.controls['picture'].setValue(data.picture)
+    document.getElementById("title")?.focus();
   }
 
+
+  
+  updateItem(){
+      this.updateData.title = this.form.value.title
+      this.updateData.firstName = this.form.value.firstName
+      this.updateData.lastName = this.form.value.lastName
+      this.updateData.picture= this.form.value.picture
+      this.apiService.updateData(this.updateData,this.updateData.id).subscribe((x)=>{
+      this.generateData()
+      })
+  }
+  
   ngOnInit(){
     this.generateData()
   }
-  deleteItem(id:number){
-    this.apiService.deleteData(id).subscribe((x)=> this.generateData())
-    // this.generateData()
-  }
-
-  editItem(data:Form){
-    this.formValid = true
-    console.log(data)
-    this.form.controls['name'].setValue(data.name)
-    this.form.controls['place'].setValue(data.place)
-
-  }
-  updateItem(data:any){
-    this.postData.name = this.form.value.name
-    this.postData.place = this.form.value.place
-    this.generateData()
-    this.apiService.updateData(this.postData,data.id).subscribe((x)=>x)
-    this.generateData()
-    this.formValid = false
-  }
-
 }
